@@ -3,4 +3,4 @@ project(algorithms_and_datastructure)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(algorithms_and_datastructure main.cpp sort.cpp)
+add_executable(algorithms_and_datastructure main.cpp Sort.cpp)
