@@ -20,13 +20,8 @@ int main(){
     std::cout<<"Min: " << tree.minimum()->value_ << std::endl;
     std::cout<<"Max: " << tree.maximum()->value_ << std::endl;
 
-    tree.maximum()->predecessor();
-
     tree.search(10);
 
-    //std::cout<<"S1: " << tree.maximum()->predecessor()->predecessor()->value_ << std::endl;
-    //std::cout<<"S2: " << tree.minimum()->predecessor()->predecessor()->predecessor()->value_ << std::endl;
-    //std::cout<<"S3: " << tree.minimum()->predecessor()->predecessor()->predecessor()->predecessor()->value_ << std::endl;
 
     tree.PrintBST();
 

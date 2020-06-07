@@ -2,8 +2,9 @@
 // Created by Jacob on 07.06.2020.
 //
 
-#include <iosfwd>
+
 #include <fstream>
+#include <string>
 #include <iostream>
 #include "BinaryTree.h"
 
@@ -16,13 +17,8 @@ BinaryTree::BinaryTree(int value) :
 
 
 void BinaryTree::PrintBST() {
-
-
-    std::ofstream textfile;
-    textfile.open("../Ass2/example.txt");
-    textfile << "Writing this to a file.\n";
-    textfile.close();
-
+    std::ofstream textfile("../Ass2/example.txt");
+    textfile << "strict digraph {\n" + getInfo() + "}";
 }
 
 /**
@@ -53,7 +49,7 @@ BinaryTree *BinaryTree::search(int value) {
  */
 BinaryTree *BinaryTree::minimum() {
     if (nullptr == left_) {
-        std::cout << "Min:" << value_ << std::endl;
+        //std::cout << "Min:" << value_ << std::endl;
         return this;
     } else {
         left_->minimum();
@@ -66,7 +62,7 @@ BinaryTree *BinaryTree::minimum() {
  */
 BinaryTree *BinaryTree::maximum() {
     if (nullptr == right_) {
-        std::cout << "Max:" << value_ << std::endl;
+        //std::cout << "Max:" << value_ << std::endl;
         return this;
     } else {
         right_->maximum();
@@ -82,7 +78,7 @@ BinaryTree *BinaryTree::maximum() {
 void BinaryTree::insertValue(int value) {
     if (value < value_) {
         if (nullptr != left_) {
-            left_->insertValue(value_);
+            left_->insertValue(value);
         } else {
             left_ = new BinaryTree(value);
         }
@@ -164,6 +160,21 @@ BinaryTree *BinaryTree::predecessor() {
     }
     return nullptr;
 
+}
+
+/**
+ * Returns a big Sting with all the Information about the binary tree
+ * @return
+ */
+std::string BinaryTree::getInfo() {
+    std::string info;
+    if (nullptr != left_) {
+        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(left_->value_) + "\"\n" + info += left_->getInfo();
+    }
+    if (nullptr != right_) {
+        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(right_->value_) + "\"\n" + right_->getInfo();
+    }
+    return info;
 }
 
 

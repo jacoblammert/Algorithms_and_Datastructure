@@ -29,9 +29,10 @@ public:
     BinaryTree* left_ = nullptr;
     BinaryTree* right_ = nullptr;
     BinaryTree* parent_ = nullptr;
-
     int value_;
 
+private:
+    std::string getInfo();
 };
 
 
