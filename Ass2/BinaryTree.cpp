@@ -22,7 +22,10 @@ void BinaryTree::PrintBST() {
 }
 
 /**
- * Searches for an int value inside the Binary tree
+ * Searches for an int value inside the Binary tree and returns the Pointer to the Node/Part
+ *
+ * This function is working correctly
+ *
  * @param value value it searches for
  * @return pointer to the leaf or nullpointer, if the value is not in the tree
  */
@@ -45,11 +48,14 @@ BinaryTree *BinaryTree::search(int value) {
 
 /**
  * Assumes that the binary tree is sorted from left to right to get the minimum recursively
+ * The function gives us the pointer to the min value from the top to the bottom
+ *
+ * This function is working correctly
+ *
  * @return Pointer to min of the binary tree
  */
 BinaryTree *BinaryTree::minimum() {
     if (nullptr == left_) {
-        //std::cout << "Min:" << value_ << std::endl;
         return this;
     } else {
         left_->minimum();
@@ -58,11 +64,14 @@ BinaryTree *BinaryTree::minimum() {
 
 /**
  * Assumes that the binary tree is sorted from left to right to get the maximum recursively
+ * The function gives us the pointer to the max value from the top to the bottom
+ *
+ * This function is working correctly
+ *
  * @return Pointer to max of the binary tree
  */
 BinaryTree *BinaryTree::maximum() {
     if (nullptr == right_) {
-        //std::cout << "Max:" << value_ << std::endl;
         return this;
     } else {
         right_->maximum();
@@ -73,6 +82,9 @@ BinaryTree *BinaryTree::maximum() {
  * Inserts a value into the Binary tree
  * This does not guarantee, that the Binary Tree is balanced.
  * if a sorted list is added one by one, the tree will be extremely unbalanced
+ *
+ * This function is working correctly
+ *
  * @param value added int value
  */
 void BinaryTree::insertValue(int value) {
@@ -91,6 +103,7 @@ void BinaryTree::insertValue(int value) {
     }
 }
 
+//TODO Add the delete a value function
 void BinaryTree::deleteValue(int value) {
     BinaryTree *pointerToValue = search(value);
     if (nullptr == pointerToValue) {
@@ -164,6 +177,10 @@ BinaryTree *BinaryTree::predecessor() {
 
 /**
  * Returns a big Sting with all the Information about the binary tree
+ * it is not really as efficient as it could be, but since it is only used once or twice, I thought it would do the job
+ *
+ * This function is working correctly
+ *
  * @return
  */
 std::string BinaryTree::getInfo() {
