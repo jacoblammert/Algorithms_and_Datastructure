@@ -3,16 +3,21 @@
 //
 
 #include <iostream>
-#include "sort.h"
+#include "Sort.h"
 
 /**
  * a print function to see the array in the console
  * @param input array
  */
 void print(std::vector<int> const &input) {
-    for (int i = 0; i < input.size(); ++i) {
-        if (i != 0)
-            std::cout << ", ";
+
+    if (!input.empty()) {
+        std::cout << input[0];
+    }
+
+    for (int i = 1; i < input.size(); ++i) {
+
+        std::cout << ", ";
         std::cout << input[i];
     }
     std::cout << std::endl;
@@ -27,9 +32,9 @@ void print(std::vector<int> const &input) {
  */
 std::vector<int> quicksort(std::vector<int> &input, int p, int r) {
     if (p < r) {
-        int q = partition(input,p,r);
-        quicksort(input,p,q-1);
-        quicksort(input,q+1,r);
+        int q = partition(input, p, r);
+        quicksort(input, p, q - 1);
+        quicksort(input, q + 1, r);
     }
     return input;
 }
@@ -41,17 +46,17 @@ std::vector<int> quicksort(std::vector<int> &input, int p, int r) {
  * @param r last item +1
  * @return
  */
-int partition(std::vector<int> &input,int p,int r){
+int partition(std::vector<int> &input, int p, int r) {
     int x = input[r];
-    int i = p-1;
+    int i = p - 1;
     for (int j = p; j < r; ++j) {
-        if (input[j] < x){
+        if (input[j] < x) {
             i++;
             iter_swap(input.begin() + i, input.begin() + j);
         }
     }
     i++;
-    iter_swap(input.begin() + i,input.begin() + r);
+    iter_swap(input.begin() + i, input.begin() + r);
     return i;
 }
 
@@ -62,23 +67,22 @@ int partition(std::vector<int> &input,int p,int r){
  * @param input array
  * @return sorted array
  */
-std::vector<int> countingsort(std::vector<int> & input) {
+std::vector<int> countingsort(std::vector<int> &input) {
 
     int max = -INFINITY;
     int min = INFINITY;
-    
+
     for (int i = 0; i < input.size(); ++i) {
-        if (max < input[i]){
+        if (max < input[i]) {
             max = input[i];
         }
-        if (min > input[i]){
+        if (min > input[i]) {
             min = input[i];
         }
     }
 
 
-
-    return countingsort(input,max,min);
+    return countingsort(input, max, min);
 }
 
 /**
@@ -89,7 +93,11 @@ std::vector<int> countingsort(std::vector<int> & input) {
  * @param min value of array
  * @return sorted array
  */
-std::vector<int> countingsort(std::vector<int> & input,int max,int min) {
+std::vector<int> countingsort(std::vector<int> &input, int max, int min) {
+    /**
+     * Initialization of array B and C starts here
+     */
+
     std::vector<int> B;
     for (int i = 0; i < input.size(); ++i) {
         B.push_back(0);
@@ -101,18 +109,22 @@ std::vector<int> countingsort(std::vector<int> & input,int max,int min) {
         C.push_back(0);
     }
 
+    /**
+     * now the counting sort algorithm starts
+     */
+
+
     for (int j = 0; j < input.size(); ++j) {
         C[input[j]]++;
     }
 
 
-
     for (int l = 2; l <= (max - min); ++l) {
-        C[l] += C[l-1];
+        C[l] += C[l - 1];
     }
 
 
-    for (int m = input.size()-1; 0 <= m ; --m) {
+    for (int m = input.size() - 1; 0 <= m; --m) {
         B[C[input[m]]] = input[m];
         C[input[m]]--;
     }

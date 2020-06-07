@@ -8,7 +8,7 @@
 
 #include <vector>
 
-class sort {
+class Sort {
 
 
 
