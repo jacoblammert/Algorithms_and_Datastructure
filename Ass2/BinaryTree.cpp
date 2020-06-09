@@ -32,16 +32,16 @@ void BinaryTree::PrintBST() {
 BinaryTree *BinaryTree::search(int value) {
 
     if (value == value_) {
-        std::cout << "Found value " << value << std::endl;
+        //std::cout << "Found value " << value << std::endl;
         return this;
     }
 
     if (value < value_) {
         if (nullptr != left_)
-            left_->search(value);
+            return left_->search(value);
     } else {
         if (nullptr != right_)
-            right_->search(value);
+            return right_->search(value);
     }
     return nullptr;
 }
@@ -93,25 +93,90 @@ void BinaryTree::insertValue(int value) {
             left_->insertValue(value);
         } else {
             left_ = new BinaryTree(value);
+            left_->parent_ = this;
         }
     } else {
         if (nullptr != right_) {
             right_->insertValue(value);
         } else {
             right_ = new BinaryTree(value);
+            right_->parent_ = this;
         }
     }
 }
 
 //TODO Add the delete a value function
 void BinaryTree::deleteValue(int value) {
+
     BinaryTree *pointerToValue = search(value);
+
     if (nullptr == pointerToValue) {
+        std::cout << "The value you want to delete does not exist inside the tree\n";
         return;
     }
 
-    if (nullptr == left_ && nullptr == right_) {
+    /// Case 1 left and right are empty
+    if (nullptr == pointerToValue->left_ && nullptr == pointerToValue->right_) {
+        if (nullptr == pointerToValue->parent_) {
+            pointerToValue->value_ = 0; /// 0 = value for a reset tree (not really optimal)
+            return;
+        } else {
+            if (pointerToValue->parent_->left_ == pointerToValue) {
+                pointerToValue->parent_->left_ = nullptr;
+                pointerToValue->parent_ = nullptr;
+                delete pointerToValue;
+                return;
+            } else {
+                pointerToValue->parent_->right_ = nullptr;
+                pointerToValue->parent_ = nullptr;
+                delete pointerToValue;
+            }
+        }
+    }
 
+    /// Case 2 left is null, right is not
+    if (nullptr == pointerToValue->left_ && nullptr != pointerToValue->right_) {
+
+        pointerToValue->right_->parent_ = pointerToValue->parent_;  // setting the parent of right to the parent of this
+
+
+        if (pointerToValue->parent_->left_ == pointerToValue) {
+            delete pointerToValue->parent_->left_;// setting the left of the parent to this right
+        } else {
+            delete pointerToValue->parent_->right_;  // setting the right of the parent to this right
+        }
+        return;
+    }
+        /// Case 3 right is null, left is not
+    else if (nullptr == pointerToValue->right_ && nullptr != pointerToValue->left_) {
+
+        pointerToValue->left_->parent_ = pointerToValue->parent_; // setting the parent of left to the parent of this
+
+
+        if (pointerToValue->parent_->left_ == pointerToValue) {
+            pointerToValue->parent_->left_ = pointerToValue->left_; // setting the left of the parent to this left
+            delete this;
+        } else {
+            pointerToValue->parent_->right_ = pointerToValue->left_; // setting the right of the parent to this left
+            delete this;
+        }
+        return;
+    }
+
+    /// Case 4 left and right are not null
+
+    if (nullptr != pointerToValue->left_ && nullptr != pointerToValue->right_) {
+
+        BinaryTree *max = left_->maximum();
+        pointerToValue->value_ = max->value_; // we got the max value from the smaller tree and can now delete that smaller part
+
+        if (max->parent_->right_ == max) {
+            max->parent_->right_ = nullptr;
+        } else if (max->parent_->left_ == max) {
+            max->parent_->left_ = nullptr;
+        }
+        delete max;
+        return;
     }
 
 
@@ -185,11 +250,18 @@ BinaryTree *BinaryTree::predecessor() {
  */
 std::string BinaryTree::getInfo() {
     std::string info;
+    /*/ // prints the connection from a node to its parent // to uncomment, you can add a *  to the / * / to make it to / * * / (without the spaces)
+    if (nullptr != parent_) {
+        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(parent_->value_) + "\"\n";
+    }/**/
+
+    /// if a number is inside the tree more than once, the tree drawing System is not working correctly even though the tree works correctly and adds the numbers at the right positions
     if (nullptr != left_) {
-        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(left_->value_) + "\"\n" + info += left_->getInfo();
+        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(left_->value_) + "\"\n" + left_->getInfo();
     }
     if (nullptr != right_) {
-        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(right_->value_) + "\"\n" + right_->getInfo();
+        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(right_->value_) + "\"\n" +
+                right_->getInfo();
     }
     return info;
 }

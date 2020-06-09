@@ -17,11 +17,23 @@ int main(){
     tree.insertValue(14);
     tree.insertValue(13);
 
+    tree.insertValue(2);
+    tree.insertValue(5);
+    tree.insertValue(-2);
+    tree.insertValue(-1);
+    tree.insertValue(0);
+    tree.insertValue(9);
+
+
     std::cout<<"Min: " << tree.minimum()->value_ << std::endl;
     std::cout<<"Max: " << tree.maximum()->value_ << std::endl;
 
     tree.search(10);
 
+    std::cout<< "Predecessor: " << tree.search(6)->predecessor()->value_<<std::endl;
+    std::cout<< "Successor: " << tree.search(6)->successor()->value_<<std::endl;
+
+    //tree.deleteValue(3);
 
     tree.PrintBST();
 
