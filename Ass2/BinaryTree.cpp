@@ -137,7 +137,7 @@ void BinaryTree::deleteValue(int value) {
     if (nullptr == pointerToValue->left_ && nullptr != pointerToValue->right_) {
 
         pointerToValue->right_->parent_ = pointerToValue->parent_;  // setting the parent of right to the parent of this
-        
+
         if (pointerToValue->parent_->left_ == pointerToValue) {
             delete pointerToValue->parent_->left_;// setting the left of the parent to this right
         } else {
@@ -258,8 +258,7 @@ std::string BinaryTree::getInfo() {
         info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(left_->value_) + "\"\n" + left_->getInfo();
     }
     if (nullptr != right_) {
-        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(right_->value_) + "\"\n" +
-                right_->getInfo();
+        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(right_->value_) + "\"\n" + right_->getInfo();
     }
     return info;
 }
