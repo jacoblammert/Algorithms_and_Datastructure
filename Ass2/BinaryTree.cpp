@@ -119,27 +119,25 @@ void BinaryTree::deleteValue(int value) {
     if (nullptr == pointerToValue->left_ && nullptr == pointerToValue->right_) {
         if (nullptr == pointerToValue->parent_) {
             pointerToValue->value_ = 0; /// 0 = value for a reset tree (not really optimal)
-            return;
         } else {
             if (pointerToValue->parent_->left_ == pointerToValue) {
                 pointerToValue->parent_->left_ = nullptr;
                 pointerToValue->parent_ = nullptr;
                 delete pointerToValue;
-                return;
             } else {
                 pointerToValue->parent_->right_ = nullptr;
                 pointerToValue->parent_ = nullptr;
                 delete pointerToValue;
             }
         }
+        return;
     }
 
     /// Case 2 left is null, right is not
     if (nullptr == pointerToValue->left_ && nullptr != pointerToValue->right_) {
 
         pointerToValue->right_->parent_ = pointerToValue->parent_;  // setting the parent of right to the parent of this
-
-
+        
         if (pointerToValue->parent_->left_ == pointerToValue) {
             delete pointerToValue->parent_->left_;// setting the left of the parent to this right
         } else {
