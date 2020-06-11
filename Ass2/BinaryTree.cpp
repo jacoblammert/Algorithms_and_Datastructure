@@ -17,8 +17,8 @@ BinaryTree::BinaryTree(int value) :
 
 
 void BinaryTree::PrintBST() {
-    std::ofstream textfile("../Ass2/example.txt");
-    textfile << "strict digraph {\n" + getInfo() + "}";
+    std::ofstream textfile("../Ass2/example.dot");
+    textfile << "strict digraph {\n" + getInfo(1) + "}";
 }
 
 /**
@@ -246,7 +246,7 @@ BinaryTree *BinaryTree::predecessor() {
  *
  * @return
  */
-std::string BinaryTree::getInfo() {
+std::string BinaryTree::getInfo(int counter) {
     std::string info;
     /*/ // prints the connection from a node to its parent // to uncomment, you can add a *  to the / * / to make it to / * * / (without the spaces)
     if (nullptr != parent_) {
@@ -254,11 +254,17 @@ std::string BinaryTree::getInfo() {
     }/**/
 
     /// if a number is inside the tree more than once, the tree drawing System is not working correctly even though the tree works correctly and adds the numbers at the right positions
+    counter *=2;
     if (nullptr != left_) {
-        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(left_->value_) + "\"\n" + left_->getInfo();
+        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(left_->value_) + "\"\n" + left_->getInfo(counter);
+    }else{
+        info += "nil" + std::to_string(counter) + "[shape = point];\n" + std::to_string(value_) + "->nil" + std::to_string((counter)) + ";\n";
     }
+    counter++;
     if (nullptr != right_) {
-        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(right_->value_) + "\"\n" + right_->getInfo();
+        info += "\"" + std::to_string(value_) + "\" -> \"" + std::to_string(right_->value_) + "\"\n" + right_->getInfo(counter);
+    }else{
+        info += "nil" + std::to_string(counter) + "[shape = point];\n" + std::to_string(value_) + "->nil" + std::to_string(counter) + ";\n";
     }
     return info;
 }

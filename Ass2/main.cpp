@@ -33,7 +33,7 @@ int main(){
     std::cout<< "Predecessor: " << tree.search(6)->predecessor()->value_<<std::endl;
     std::cout<< "Successor: " << tree.search(6)->successor()->value_<<std::endl;
 
-    //tree.deleteValue(3);
+    tree.deleteValue(13);
 
     tree.PrintBST();
 

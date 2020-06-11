@@ -32,7 +32,7 @@ public:
     int value_;
 
 private:
-    std::string getInfo();
+    std::string getInfo(int counter);
 };
 
 
