@@ -5,3 +5,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(algorithms_and_datastructure Ass1/main.cpp Ass1/Sort.cpp)
 add_executable(algorithms_and_datastructure2 Ass2/main.cpp Ass2/BinaryTree.cpp)
+add_executable(algorithms_and_datastructure3 Ass3/main.cpp Ass3/Node.cpp Ass3/MinHeapNode.cpp Ass3/MinHeap.cpp Ass3/Graph.cpp)
