@@ -8,23 +8,16 @@
  * rebuilds the Minheap by getting all the elements out first and rebuilding it afterwards
  */
 void MinHeap::restructure() {
-
     std::vector<Node *> OldNodes = root->getNodes();
-    //root = new MinHeapNode{OldNodes, nullptr};
 
 }
 
 
 /**
  * function to get the pointer to the element with the smallest connection to another element
- * @return the Node
+ * @return the Node with the smallest distance
  */
 Node *MinHeap::extractMin() {
-/*/
-    Node *minHeapNode = root->extractSmallest();
-    root->deleteSmallest();
-
-/*/
 
     Node *minHeapNode = nullptr;
 
@@ -36,9 +29,7 @@ Node *MinHeap::extractMin() {
                 counter = i;
             }
         }
-
         minHeapNode = OldNodes[counter];
-
 
         std::vector<Node *> NewNodes;
 
@@ -47,15 +38,11 @@ Node *MinHeap::extractMin() {
                 NewNodes.push_back(OldNodes[j]);
             }
         }
-        //OldNodes.erase(OldNodes.begin() + counter);
-
-
         root = new MinHeapNode{NewNodes, nullptr};
     }
-/**/
-
     return minHeapNode;
 }
+
 
 /**
  * Constructor takes a Node array
@@ -97,6 +84,9 @@ MinHeap::~MinHeap() {
     delete root;
 }
 
+/**
+ * @return all Nodes inside the Heap
+ */
 std::vector<Node *> MinHeap::getNodes() {
     return  root->getNodes();
 }

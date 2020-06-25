@@ -10,7 +10,6 @@
 
 class MinHeapNode {
 private:
-    /* data */
     Node *node = nullptr;
     MinHeapNode *parent = nullptr;
     MinHeapNode *left = nullptr;
@@ -18,17 +17,11 @@ private:
 
 public:
 
-    /**
-     * Sorts the Minheap from lowest minimal Connection inside the vector to highest minimal connection in the vector
-     * @param nodes
-     */
     MinHeapNode(std::vector<Node *> nodes,MinHeapNode *parent);
 
+    ~MinHeapNode();
 
     std::vector<Node *> getNodes();
-
-
-    ~MinHeapNode();
 
     Node* getNode();
 
@@ -38,7 +31,6 @@ public:
 
     bool isEmpty();
 
-    // TODO: implement additional constructors
 };
 
 

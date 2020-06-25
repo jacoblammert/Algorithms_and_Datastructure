@@ -1,4 +1,4 @@
-strict digraph {
+digraph {
 s->a[label = "10",weight="10"];
 s->e[label = "8",weight="8"];
 a->c[label = "2",weight="2"];

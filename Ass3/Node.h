@@ -17,30 +17,26 @@ private:
 
 public:
     Node(std::string label);
-
     Node(std::string label, std::map<Node*, int> adjacentNodes);
+    Node(std::string label, Node *parent, int dist, const std::map<Node*, int>& adjacentNodes);
 
     ~Node();
-
-
-    Node(std::string label, Node *parent, int dist, const std::map<Node*, int>& adjacentNodes);
 
     void addConnection(Node *node, int dist);
     void Connect(Node* node,int dist);
     void update();
-
-    std::string getLabel();
-    int getDistance();
-    int getDistanceTo(Node* here);
-
+    void setParent(Node *new_parent);
+    void setDist(int dist);
     void removeNode(std::string labels);
     void setParent_dist(Node *new_parent, int dist);
 
+    int getDistance();
+    int getDistanceTo(Node* here);
+    int getMinDist();
+
     std::map<Node*,int> getNeighbours();
 
-    void setParent(Node *new_parent);
-    void setDist(int dist);
-    int getMinDist();
+    std::string getLabel();
     std::string getInformationParent();
     std::string getInformationConnection();
 };

@@ -12,6 +12,7 @@ private:
     std::vector<Node *> nodes;
     MinHeap *minPriorityQueue;
     bool isDirected;
+    std::string information;
 
 public:
     Graph(std::vector<Node *> nodes, bool directed);
@@ -19,12 +20,11 @@ public:
 
     void addNode(Node *node);
     void prim();
-
+    void relax(Node* u, Node* v, int w);
+    void print(std::string name,bool parent);
 
     bool bellmanFord();
-    void relax(Node* u, Node* v, int w);
 
-    void print(std::string name,bool parent);
     std::string getInfoParent();
     std::string getInfoConnection();
 };

@@ -95,6 +95,8 @@ Node *MinHeapNode::extractSmallest() {
 }
 
 /**
+ * This method is not used, because I had a problem returning the node pointer in the extract function
+ *
  * Deletes the smallest element from the heap
  * and stitches the other HeapNodes back together
  */
@@ -132,8 +134,6 @@ void MinHeapNode::deleteSmallest() {
     }
 
     left->deleteSmallest();
-
-
 }
 
 /**

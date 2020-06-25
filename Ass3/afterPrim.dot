@@ -1,8 +1,30 @@
-strict digraph {
+digraph {
+a->b[label = "2",weight="2"];
+a->c[label = "3",weight="3"];
+a->d[label = "3",weight="3"];
 b->a[label = "2",weight="2"];
+b->c[label = "4",weight="4"];
+b->e[label = "3",weight="3"];
+c->b[label = "4",weight="4"];
 c->a[label = "3",weight="3"];
+c->d[label = "5",weight="5"];
+c->e[label = "1",weight="1"];
+c->f[label = "6",weight="6"];
 d->a[label = "3",weight="3"];
+d->c[label = "5",weight="5"];
+d->f[label = "7",weight="7"];
+e->b[label = "3",weight="3"];
 e->c[label = "1",weight="1"];
+e->f[label = "8",weight="8"];
 f->c[label = "6",weight="6"];
+f->d[label = "7",weight="7"];
+f->e[label = "8",weight="8"];
+f->g[label = "9",weight="9"];
 g->f[label = "9",weight="9"];
+b->a[label = "2",weight="2" color = "red"];
+c->a[label = "3",weight="3" color = "red"];
+d->a[label = "3",weight="3" color = "red"];
+e->c[label = "1",weight="1" color = "red"];
+f->c[label = "6",weight="6" color = "red"];
+g->f[label = "9",weight="9" color = "red"];
 }

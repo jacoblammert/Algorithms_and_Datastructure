@@ -4,12 +4,12 @@
 
 
 /**
- * prim algorithm to get the smallest spanning tree
+ * prim algorithm to get the minimum spanning tree
  * it is not working, because the extractMin() function did not wort for some reason
  */
 void Graph::prim() {
     for (int i = 0; i < nodes.size(); ++i) {
-        nodes[i]->setParent_dist(nullptr, 99999);
+        nodes[i]->setParent_dist(nullptr, 9999999);
     }
     nodes[0]->setDist(0);
 
@@ -34,7 +34,7 @@ bool Graph::bellmanFord() {
 
 
     for (int i = 0; i < nodes.size(); ++i) {
-        nodes[i]->setParent_dist(nullptr, 99999);
+        nodes[i]->setParent_dist(nullptr, 9999999);
     }
     nodes[0]->setDist(0);
 
@@ -120,9 +120,11 @@ void Graph::addNode(Node *node) {
 void Graph::print(std::string name, bool parent) {
     std::ofstream textfile("../Ass3/" + name + ".dot");
     if (parent) {
-        textfile << "strict digraph {\n" + getInfoParent() + "}";
+        information +=  getInfoParent();
+        textfile << "digraph {\n" + information + "}";
     } else {
-        textfile << "strict digraph {\n" + getInfoConnection() + "}";
+        information = getInfoConnection(); // this second Graph will have the Colorinformation as well, therefore we can display the color in the graph
+        textfile << "digraph {\n" + information + "}";
     }
 
 }
@@ -135,8 +137,6 @@ void Graph::print(std::string name, bool parent) {
 std::string Graph::getInfoParent() {
 
     std::string info;
-
-    //nodes = minPriorityQueue->getNodes();
 
     for (int i = 0; i < nodes.size(); ++i) {
         if (nullptr != nodes[i]) {
@@ -155,8 +155,6 @@ std::string Graph::getInfoParent() {
 std::string Graph::getInfoConnection() {
 
     std::string info;
-
-    //nodes = minPriorityQueue->getNodes();
 
     for (int i = 0; i < nodes.size(); ++i) {
         info = info + nodes[i]->getInformationConnection();

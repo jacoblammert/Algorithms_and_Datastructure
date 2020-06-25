@@ -10,17 +10,17 @@ Node::Node(std::string label, std::map<Node *, int> adjacentNodes)
         : label{std::move(label)}, adjacentNodes{std::move(adjacentNodes)} {
 }
 
-/*/
-Node() {
-        for (auto elements: adjacentNodes) {
-            adjacentNodes.erase(elements.first);
-        }
-}/**/
 
+Node::Node(std::string label, Node *parent, int dist, const std::map<Node *, int> &adjacentNodes){
 
-Node::Node(std::string label, Node *parent, int dist, const std::map<Node *, int> &adjacentNodes)
-/*/: label{label}, parent{parent}, distance{dist}, adjacentNodes{adjacentNodes} /**/{}
+}
 
+Node::~Node() {
+    for (auto elements: adjacentNodes) {
+        delete elements.first;
+
+    }
+}
 
 
 /**
@@ -51,7 +51,10 @@ void Node::update() {
     }
 }
 
-
+/**
+ * a function to remove the Connection to a Node, where the name of the Node to remove is the input as string
+ * @param labels
+ */
 void Node::removeNode(std::string labels) {
 
     for (auto elements: adjacentNodes) {
@@ -72,93 +75,89 @@ void Node::setParent_dist(Node *new_parent, int dist) {
     parent = new_parent;
     distance = dist;
 }
-
+/**
+ * @param new_parent set the parent of the Node to a new parent
+ */
 void Node::setParent(Node *new_parent) {
     parent = new_parent;
 }
 
-
+/**
+ * set the Distance of this Node to its parent as int
+ * @param dist
+ */
 void Node::setDist(int dist) {
     distance = dist;
 }
+int Node::getDistance() {
+    return distance;
+}
 
+/**
+ * returns the dist from this Node to a given Node if they are connected
+ * @param here
+ * @return
+ */
+int Node::getDistanceTo(Node *here) {
+    return adjacentNodes.find(here)->second;
+}
+
+/**
+ * @return the minimum distance of this Node to any other Node
+ */
 int Node::getMinDist() {
-    //return 0;
-    ///*/
     if (adjacentNodes.empty()) {
         return distance;
     }
-    int min = distance;//adjacentNodes.begin()->second;
+    int min = distance;
     for (const auto &elements: adjacentNodes) {
         if (elements.second < min) {
             min = elements.second;
         }
     }
     return min;
-    /**/
 }
 
+/**
+ * @return a string with the Nodes Parent and Distance as Information
+ */
 std::string Node::getInformationParent() {
     std::string info;
-    /*/
-    for (const auto &element: adjacentNodes) {
-        if (!element.first->label.empty()) {
-            info += label + "->" + element.first->label + "[label = \"" + std::to_string(element.second) +
-                    "\",weight=\"" + std::to_string(element.second) + "\"];\n";
-        }
-    }/*/
     if (nullptr != parent) { //
         info += label + "->" + parent->label + "[label = \"" + std::to_string(distance) + "\",weight=\"" +
-                std::to_string(distance) + "\"];\n";
+                std::to_string(distance) + "\" color = \"red\"];\n";
     }
-    /**/
-
     return info;
 }
 
+/**
+ * @return a string with the Information of the Node and its connections
+ */
 std::string Node::getInformationConnection() {
     std::string info;
-    /**/
     for (const auto &element: adjacentNodes) {
         if (nullptr != element.first && !element.first->label.empty()) {
             info += label + "->" + element.first->label + "[label = \"" + std::to_string(element.second) +
                     "\",weight=\"" + std::to_string(element.second) + "\"];\n";
         }
     }
-    /*/
-    if (nullptr != parent) { //
-        info += label + "->" + parent->label + "[label = \"" + std::to_string(distance) + "\",weight=\"" +
-                std::to_string(distance) + "\"];\n";
-    }
-    /**/
-
     return info;
 }
 
+/**
+ * @return Name of the Node as string
+ */
 std::string Node::getLabel() {
     return label;
 }
 
-Node::~Node() {
-    for (auto elements: adjacentNodes) {
-        delete elements.first;
-
-    }
-}
-
+/**
+ * @return all nodes this node points to as map
+ */
 std::map<Node *, int> Node::getNeighbours() {
     return adjacentNodes;
 }
 
-int Node::getDistance() {
-    return distance;
-}
-
-
-int Node::getDistanceTo(Node *here) {
-    return adjacentNodes.find(here)->second;//[here]
-    return 99999;
-}
 
 
 
