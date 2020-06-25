@@ -21,10 +21,10 @@ public:
     void prim();
 
 
-    // TODO: implement Bellman-Ford
-    void bellmanFord();
+    bool bellmanFord();
+    void relax(Node* u, Node* v, int w);
 
-    void print(std::string name,bool before);
+    void print(std::string name,bool parent);
     std::string getInfoParent();
     std::string getInfoConnection();
 };

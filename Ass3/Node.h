@@ -27,17 +27,18 @@ public:
 
     void addConnection(Node *node, int dist);
     void Connect(Node* node,int dist);
+    void update();
 
     std::string getLabel();
     int getDistance();
+    int getDistanceTo(Node* here);
 
     void removeNode(std::string labels);
     void setParent_dist(Node *new_parent, int dist);
 
     std::map<Node*,int> getNeighbours();
 
-    void setParent(Node *new_parent, int dist);
-    void setParent(Node* new_parent);
+    void setParent(Node *new_parent);
     void setDist(int dist);
     int getMinDist();
     std::string getInformationParent();

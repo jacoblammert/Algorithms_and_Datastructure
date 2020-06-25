@@ -1,0 +1,7 @@
+strict digraph {
+ a->d[label = "5",weight="5"];
+ b->c[label = "5",weight="5"];
+ c->a[label = "7",weight="7"];
+ d->e[label = "9",weight="9"];
+ e->s[label = "8",weight="8"];
+ }

@@ -30,7 +30,6 @@ Node::Node(std::string label, Node *parent, int dist, const std::map<Node *, int
  */
 void Node::addConnection(Node *node, int dist) {
     adjacentNodes[node] = dist;
-    node->Connect(this,dist);
 }
 /**
  * For connections in both directions
@@ -40,6 +39,18 @@ void Node::addConnection(Node *node, int dist) {
 void Node::Connect(Node *node, int dist) {
     adjacentNodes[node] = dist;
 }
+
+/**
+ * If the graph is bidirectional, the prim algorithm works.
+ * Therefore we have to make it bidirectional by connecting the nodes we point to
+ * with us and make them point at us as well
+ */
+void Node::update() {
+    for (auto elements : adjacentNodes){
+        elements.first->Connect(this,elements.second);
+    }
+}
+
 
 void Node::removeNode(std::string labels) {
 
@@ -62,7 +73,7 @@ void Node::setParent_dist(Node *new_parent, int dist) {
     distance = dist;
 }
 
-void Node::setParent(Node *new_parent, int dist) {
+void Node::setParent(Node *new_parent) {
     parent = new_parent;
 }
 
@@ -109,11 +120,12 @@ std::string Node::getInformationConnection() {
     std::string info;
     /**/
     for (const auto &element: adjacentNodes) {
-        if (!element.first->label.empty()) {
+        if (nullptr != element.first && !element.first->label.empty()) {
             info += label + "->" + element.first->label + "[label = \"" + std::to_string(element.second) +
                     "\",weight=\"" + std::to_string(element.second) + "\"];\n";
         }
-    }/*/
+    }
+    /*/
     if (nullptr != parent) { //
         info += label + "->" + parent->label + "[label = \"" + std::to_string(distance) + "\",weight=\"" +
                 std::to_string(distance) + "\"];\n";
@@ -142,8 +154,10 @@ int Node::getDistance() {
     return distance;
 }
 
-void Node::setParent(Node *new_parent) {
-    parent = new_parent;
+
+int Node::getDistanceTo(Node *here) {
+    return adjacentNodes.find(here)->second;//[here]
+    return 99999;
 }
 
 
