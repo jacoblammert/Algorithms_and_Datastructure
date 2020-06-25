@@ -9,23 +9,22 @@
  */
 void Graph::prim() {
     for (int i = 0; i < nodes.size(); ++i) {
-        nodes[i]->setParent_dist(nullptr,INFINITY);
+        nodes[i]->setParent_dist(nullptr,99999);
     }
     nodes[0]->setDist(0);
 
     minPriorityQueue = new MinHeap{nodes};
+    std::vector<Node*> newNodes;
 
     while (!minPriorityQueue->isEmpty()){
         Node* u = minPriorityQueue->extractMin();
         std::map<Node*,int> neighbours = u->getNeighbours();
         for (auto v: neighbours) {
-            if(nullptr != v.first && minPriorityQueue->isIn(v.first) && v.second < v.first->getDistance()){
+            if(minPriorityQueue->isIn(v.first) && v.second < v.first->getDistance()){
                 v.first->setParent_dist(u,v.second);
             }
         }
     }
-
-
 }
 
 /**
@@ -38,11 +37,25 @@ void Graph::bellmanFord() {
     nodes[0] = 0;
 
     for (int j = 0; j < nodes.size()-1; ++j) {
-        for (int i = 0; i < nodes[j]->getNeighbours().size(); ++i) {
+        std::map<Node*,int> neighbours = nodes[j]->getNeighbours();
+        for (int i = 0; i < neighbours.size(); ++i) {
 
         }
     }
 }
+
+void relax(Node* u, Node* v, int w) {
+    if (v->getDistance() > (w + u->getDistance())) {
+        v->setParent(u);
+        v->setDist(w + u->getDistance());
+    }
+}
+
+
+
+
+
+
 /**
  * Constructor to generate Graphs
  * @param nodes as an array
@@ -69,27 +82,54 @@ void Graph::addNode(Node *node)  {
     nodes.push_back(node);
 }
 
+
 /**
+ *
  * Prints a Graph in dot file in this folder
+ * @param name of the file
+ * @param before bool, whether it should print the parents or the connections
  */
-void Graph::print() {
-    std::ofstream textfile("../Ass3/example.dot");
-    textfile << "strict digraph {\n" + getInfo() + "}";
+void Graph::print(std::string name,bool before) {
+    std::ofstream textfile("../Ass3/" + name + ".dot");
+    if (before) {
+        textfile << "strict digraph {\n" + getInfoParent() + "}";
+    } else{
+        textfile << "strict digraph {\n" + getInfoConnection() + "}";
+    }
+
 }
+/**
+ * Method for printing
+ * Takes the information from all the Nodes
+ * @return String of Information
+ */
+std::string Graph::getInfoParent() {
+
+    std::string info;
+
+    //nodes = minPriorityQueue->getNodes();
+
+    for (int i = 0; i < nodes.size(); ++i) {
+        info = info + nodes[i]->getInformationParent();
+    }
+    return info;
+}
+
+
 
 /**
  * Method for printing
  * Takes the information from all the Nodes
  * @return String of Information
  */
-std::string Graph::getInfo() {
+std::string Graph::getInfoConnection() {
 
     std::string info;
 
+    //nodes = minPriorityQueue->getNodes();
+
     for (int i = 0; i < nodes.size(); ++i) {
-        info = info + nodes[i]->getInformation();
+        info = info + nodes[i]->getInformationConnection();
     }
     return info;
 }
-
-

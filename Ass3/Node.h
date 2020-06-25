@@ -13,7 +13,7 @@ private:
     std::string label;
     std::map<Node*, int> adjacentNodes; // the int is for the weight of the egde
     Node *parent = nullptr;
-    int distance; // aka key
+    int distance = 9999999; // aka key
 
 public:
     Node(std::string label);
@@ -26,6 +26,7 @@ public:
     Node(std::string label, Node *parent, int dist, const std::map<Node*, int>& adjacentNodes);
 
     void addConnection(Node *node, int dist);
+    void Connect(Node* node,int dist);
 
     std::string getLabel();
     int getDistance();
@@ -36,9 +37,11 @@ public:
     std::map<Node*,int> getNeighbours();
 
     void setParent(Node *new_parent, int dist);
+    void setParent(Node* new_parent);
     void setDist(int dist);
     int getMinDist();
-    std::string getInformation();
+    std::string getInformationParent();
+    std::string getInformationConnection();
 };
 
 

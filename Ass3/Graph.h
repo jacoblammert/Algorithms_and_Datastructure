@@ -24,8 +24,9 @@ public:
     // TODO: implement Bellman-Ford
     void bellmanFord();
 
-    void print();
-    std::string getInfo();
+    void print(std::string name,bool before);
+    std::string getInfoParent();
+    std::string getInfoConnection();
 };
 
 

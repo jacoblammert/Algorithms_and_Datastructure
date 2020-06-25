@@ -15,16 +15,13 @@ public:
 
     ~MinHeap();
 
-
-    /**
-     * Restructures the min priority queue
-     * by getting all the nodes and reconstructing a new one
-     */
     void restructure();
 
     bool isIn(Node*);
 
     Node *extractMin();
+
+    std::vector<Node*> getNodes();
 
     bool isEmpty();
 };

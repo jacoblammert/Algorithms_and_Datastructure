@@ -11,10 +11,10 @@
 class MinHeapNode {
 private:
     /* data */
-    Node *node;
-    MinHeapNode *parent{};
-    MinHeapNode *left;
-    MinHeapNode *right;
+    Node *node = nullptr;
+    MinHeapNode *parent = nullptr;
+    MinHeapNode *left = nullptr;
+    MinHeapNode *right = nullptr;
 
 public:
 

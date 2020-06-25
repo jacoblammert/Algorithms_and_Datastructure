@@ -8,14 +8,39 @@ int main(){
 
     std::vector<Node*> nodes;
 
-    nodes.push_back(new Node{"a"/**/,{{new Node("b"),2}/*/,{new Node("c"),3},{new Node("d"),3}/**/}});
-    nodes.push_back(new Node{"b"/**/,{{new Node("c"),4}/*/,{new Node("c"),2},{new Node("e"),3}/**/}});
-    nodes.push_back(new Node{"c"/**/,{{new Node("a"),3},{new Node("b"),4},{new Node("d"),5},{new Node("f"),6},{new Node("e"),1}}});
-    nodes.push_back(new Node{"f"/**/,{{new Node("d"),7}/*/,{new Node("e"),8},{new Node("g"),9}/**/}});
+    Node* a = new Node{"a"};
+    Node* b = new Node{"b"};
+    Node* c = new Node{"c"};
+    Node* d = new Node{"d"};
+    Node* e = new Node{"e"};
+    Node* f = new Node{"f"};
+    Node* g = new Node{"g"};
 
-    nodes.push_back(new Node{"g"/**/,{{new Node("f"),9}}});
-    nodes.push_back(new Node{"d"/**/,{{new Node("a"),3},{new Node("c"),5},{new Node("f"),7}}});
-    nodes.push_back(new Node{"e"/**/,{{new Node("b"),3},{new Node("c"),1},{new Node("f"),8}}});
+    a->addConnection(b,2);
+
+    c->addConnection(a,3);
+    c->addConnection(b,4);
+    c->addConnection(f,6);
+
+    d->addConnection(a,3);
+    d->addConnection(c,5);
+    d->addConnection(f,7);
+
+    e->addConnection(b,3);
+    e->addConnection(c,1);
+    e->addConnection(f,8);
+
+    g->addConnection(f,9);
+
+
+    nodes.push_back(a);
+    nodes.push_back(b);
+    nodes.push_back(c);
+    nodes.push_back(d);
+    nodes.push_back(e);
+    nodes.push_back(f);
+
+    nodes.push_back(g);
 
 
     //nodes[0]->addConnection(new Node{"b"},2);
@@ -34,8 +59,11 @@ int main(){
 
     Graph graphTemplate{nodes,true};
     //graphTemplate.removeNode(new Node{"a"});
+    graphTemplate.print("beforePrim",false);
     graphTemplate.prim();
-    graphTemplate.print();
+    graphTemplate.print("afterPrim",true);
+
+
 
 
     return 0;

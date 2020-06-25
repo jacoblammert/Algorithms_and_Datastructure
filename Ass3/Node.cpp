@@ -30,9 +30,16 @@ Node::Node(std::string label, Node *parent, int dist, const std::map<Node *, int
  */
 void Node::addConnection(Node *node, int dist) {
     adjacentNodes[node] = dist;
-    //adjacentNodes.insert(std::make_pair(node, dist));
+    node->Connect(this,dist);
 }
-
+/**
+ * For connections in both directions
+ * @param node node this one is connected to
+ * @param dist of the connection
+ */
+void Node::Connect(Node *node, int dist) {
+    adjacentNodes[node] = dist;
+}
 
 void Node::removeNode(std::string labels) {
 
@@ -70,7 +77,7 @@ int Node::getMinDist() {
     if (adjacentNodes.empty()) {
         return distance;
     }
-    int min = adjacentNodes.begin()->second;
+    int min = distance;//adjacentNodes.begin()->second;
     for (const auto &elements: adjacentNodes) {
         if (elements.second < min) {
             min = elements.second;
@@ -80,14 +87,38 @@ int Node::getMinDist() {
     /**/
 }
 
-std::string Node::getInformation() {
-    std::string info;/**/
+std::string Node::getInformationParent() {
+    std::string info;
+    /*/
     for (const auto &element: adjacentNodes) {
         if (!element.first->label.empty()) {
             info += label + "->" + element.first->label + "[label = \"" + std::to_string(element.second) +
                     "\",weight=\"" + std::to_string(element.second) + "\"];\n";
         }
+    }/*/
+    if (nullptr != parent) { //
+        info += label + "->" + parent->label + "[label = \"" + std::to_string(distance) + "\",weight=\"" +
+                std::to_string(distance) + "\"];\n";
     }
+    /**/
+
+    return info;
+}
+
+std::string Node::getInformationConnection() {
+    std::string info;
+    /**/
+    for (const auto &element: adjacentNodes) {
+        if (!element.first->label.empty()) {
+            info += label + "->" + element.first->label + "[label = \"" + std::to_string(element.second) +
+                    "\",weight=\"" + std::to_string(element.second) + "\"];\n";
+        }
+    }/*/
+    if (nullptr != parent) { //
+        info += label + "->" + parent->label + "[label = \"" + std::to_string(distance) + "\",weight=\"" +
+                std::to_string(distance) + "\"];\n";
+    }
+    /**/
 
     return info;
 }
@@ -110,6 +141,12 @@ std::map<Node *, int> Node::getNeighbours() {
 int Node::getDistance() {
     return distance;
 }
+
+void Node::setParent(Node *new_parent) {
+    parent = new_parent;
+}
+
+
 
 
 

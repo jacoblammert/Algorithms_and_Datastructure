@@ -40,8 +40,11 @@ MinHeapNode::MinHeapNode(std::vector<Node *> nodes, MinHeapNode *parent) {
  */
 std::vector<Node *> MinHeapNode::getNodes() {
     std::vector<Node *> vector;
-    vector.push_back(node);
-
+    if(nullptr != node) {
+        vector.push_back(node);
+    } else{
+        return{};
+    }
 
     std::vector<Node *> newNodes;
 
@@ -113,6 +116,7 @@ void MinHeapNode::deleteSmallest() {
             if (parent->left == this) {
                 parent->left = right;
                 right->parent = parent;
+                delete this;
             } else {
                 parent->right = right;
                 right->parent = parent;
