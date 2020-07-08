@@ -8,6 +8,7 @@ struct point {
 public:
     float x_ = INFINITY;
     float y_ = INFINITY;
+
     float getDist(point p);
     void print();
 };
